@@ -1,0 +1,261 @@
+/* -----------------------------------------------------------------
+   Global Styles and Variables
+----------------------------------------------------------------- */
+:root {
+    --color-primary: #3b82f6; /* Blue */
+    --color-green-600: #10b981; /* Green */
+    --color-purple-600: #8b5cf6; /* Purple */
+    --color-indigo: #6366f1; /* Indigo */
+    --color-red: #ef4444; /* Red */
+    --color-gray-700: #374151;
+    --color-gray-500: #6b7280;
+    --color-gray-200: #e5e7eb;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    
+    min-height: 100vh;
+    /*display: flex;
+    justify-content: center;
+    align-items: center;*/
+    
+    /* Removed align-items: center to allow full vertical stretching */
+}
+
+/* -----------------------------------------------------------------
+   App Structure (Full Screen Layout)
+----------------------------------------------------------------- */
+.app-container {
+    background-image: linear-gradient(to bottom right, rgb(29,29,195), rgb(170, 25, 170));
+    width: 100%; /* Take full available width */
+    min-height: 100vh; /* CRITICAL: Force app to fill viewport height */
+    /*margin: 0 auto; /* Center horizontally */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    /*justify-content: space-between;*/
+    overflow: hidden;
+}
+
+.app-header {
+    background-color: rgba(255, 255, 255, 0.105);
+    border: 0.5px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    padding: 20px 30px;
+    box-shadow: 0 5px 7px -1px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    border-radius: 40px;
+
+    backdrop-filter: blur(5px);
+    width: fit-content;
+    position: sticky; 
+    top: 15px;
+    left: 15px;
+
+}
+
+.app-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.main-content {
+    flex-grow: 1;
+    position: relative;
+    padding: 30px;
+    overflow: hidden;
+}
+
+.app-footer {
+    background-color: #00000078;
+    color: var(--color-gray-200);
+    padding: 10px 30px;
+    text-align: center;
+    font-size: 0.8rem;
+    border-top: 1px solid var(--color-gray-200);
+}
+
+/* -----------------------------------------------------------------
+   Dynamic Panel Transitions (The "App-Like" Effect)
+----------------------------------------------------------------- */
+.app-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    opacity: 0;
+    transform: translateY(100%); /* Start below the view */
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    pointer-events: none; /* Ignore clicks when hidden */
+}
+
+.app-panel.panel-active {
+    opacity: 1;
+    transform: translateY(0); /* Slide into view */
+    pointer-events: auto; /* Enable clicks when visible */
+}
+
+/* Special Case for Landing Page to appear instantly */
+.app-panel:nth-child(1).panel-active { 
+    transform: none; 
+    opacity: 1;
+}
+
+/* -----------------------------------------------------------------
+   Component Styles
+----------------------------------------------------------------- */
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s, opacity 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+    
+}
+
+.icon-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-green {
+    background-color: var(--color-green-600);
+    color: white;
+}
+.btn-green:hover:not(:disabled) { background-color: #059669; }
+
+.btn-purple {
+    background-color: var(--color-purple-600);
+    color: white;
+}
+.btn-purple:hover:not(:disabled) { background-color: #7c3aed; }
+
+.btn-red {
+    color: white;
+    background-color: var(--color-red);
+    padding: 0.1rem 0.1rem;
+
+}
+.btn-red:hover:not(:disabled) { background-color: #dc2626; }
+
+.btn-indigo {
+    background-color: var(--color-indigo);
+    color: white;
+}
+.btn-indigo:hover:not(:disabled) { background-color: #4f46e5; }
+
+.btn-gray {
+    background-color: #d1d5db;
+    color: var(--color-gray-700);
+}
+.btn-gray:hover:not(:disabled) { background-color: #9ca3af; }
+
+
+/* File Upload Area */
+.file-input-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 3px dashed var(--color-gray-500);
+    border-radius: 15px;
+    background-color: #f9fafb;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s, background-color 0.3s;
+    width: 100%;
+    min-height: 200px;
+}
+.file-input-label:hover {
+    border-color: var(--color-primary);
+}
+.file-input-label-disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: var(--color-gray-200);
+}
+
+/* Progress Bar */
+.progress-bar-container {
+    width: 100%;
+    height: 12px;
+    background-color: var(--color-gray-200);
+    border-radius: 9999px;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    background-color: var(--color-green-600);
+    transition: width 0.3s ease-in-out;
+}
+
+/* Link Display */
+.link-display-box {
+    display: flex;
+    align-items: center;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    padding: 0.5rem;
+    border: 1px solid var(--color-gray-200);
+}
+.link-text-mono, .code-text-mono {
+    flex-grow: 1;
+    font-family: monospace;
+    font-size: 0.9rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 0.5rem;
+    color: var(--color-gray-700);
+}
+
+/* Input Fields */
+.input-field {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-gray-500);
+    border-radius: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-size: 1rem;
+}
+.input-field:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    outline: none;
+}
+
+/* Error Message */
+.error-message {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-red);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    z-index: 100;
+    font-weight: 600;
+}

@@ -1,0 +1,15 @@
+# Java / Spring Boot
+target/
+*.jar
+*.class
+*.log
+
+# Node / React
+node_modules/
+build/
+
+# System / IDE
+.DS_Store
+.idea/
+*.iml
+.vscode/
