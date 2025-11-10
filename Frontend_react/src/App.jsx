@@ -6,7 +6,7 @@ import LandingPage from './components/LandingPage.jsx';
 import UploadPanel from './components/UploadPanel.jsx';
 import RetrievePanel from './components/RetrievePanel.jsx';
 
-const API_URL = import.meta.env.VITE_API_URL; // Your Flask backend URL
+const API_URL = import.meta.env.VITE_API_URL ?? ''; // Your Flask backend URL
 
 // --- Shared Helper Functions and Components ---
 
