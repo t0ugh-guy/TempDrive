@@ -6,7 +6,7 @@ import LandingPage from './components/LandingPage.jsx';
 import UploadPanel from './components/UploadPanel.jsx';
 import RetrievePanel from './components/RetrievePanel.jsx';
 
-const API_URL = 'http://127.0.0.1:8080'; // Your Flask backend URL
+const API_URL = import.meta.env.VITE_API_URL; // Your Flask backend URL
 
 // --- Shared Helper Functions and Components ---
 
@@ -208,17 +208,7 @@ const App = () => {
             </header>
 
             <main className="main-content">
-                <div className={`app-panel landing ${getPanelClass('landing')}`}>
-                    {renderContent()}
-                </div>
-                {/* Upload Panel and Link Display */}
-                <div className={`app-panel upload ${getPanelClass('uploading')} ${getPanelClass('link_generated')}`}>
-                    {(appState === 'uploading' || appState === 'link_generated') && renderContent()}
-                </div>
-                {/* Retrieve Panel and Download Display */}
-                <div className={`app-panel retrieve ${getPanelClass('retrieving')} ${getPanelClass('file_retrieved')}`}>
-                    {(appState === 'retrieving' || appState === 'file_retrieved') && renderContent()}
-                </div>
+                    {renderContent()}    
             </main>
 
             <footer className="app-footer">
